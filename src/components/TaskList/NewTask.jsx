@@ -1,19 +1,23 @@
-import React from "react";
+import React from 'react';
 
-export default function NewTask(){
+const NewTask = ({ data }) => {
     return (
-        <div className="h-full flex-shrink-0 w-[352px] p-5 bg-pink-400 rounded-xl" >
-                <div className="flex justify-between items-center">
-                    <h3 className="bg-red-600 text-sm px-3 py-1 rounded">High</h3>
-                    <h4 className="text-sm">20 feb 2024</h4>
-                </div>
-                <h2 className="mt-5 text-2xl font-semibold">Make a Video</h2>
-                <p className="text-sm mt-2">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo neque natus repellat aspernatur possimus consectetur cum. Facilis, nesciunt voluptas. Facilis voluptatem non tenetur in sint aliquam? Pariatur eum nostrum error.
-                </p>
-                <div className="mt-20">
-                    <button className="bg-green-500 py-3 px-3 text-sm rounded-full w-full ease-in duration-150 hover:bg-green-600">Accept Task</button>
-                </div>
+        <div className="flex-shrink-0 h-full w-[300px] p-6 bg-green-400 rounded-xl shadow-lg transform transition-transform duration-300 hover:shadow-2xl">
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="bg-red-600 text-xs px-3 py-1 rounded-full text-white font-semibold shadow-sm">
+                    {data.category}
+                </h3>
+                <h4 className="text-xs font-semibold text-gray-700">{data.taskDate}</h4>
             </div>
-    )
-}
+            <h2 className="mt-4 text-2xl font-semibold text-gray-800">{data.taskTitle}</h2>
+            <p className="text-sm mt-2 text-gray-700 leading-relaxed">{data.taskDescription}</p>
+            <div className="mt-8">
+                <button className="w-full bg-blue-600 text-white rounded-full font-medium py-3 text-sm shadow-md hover:bg-blue-700 hover:shadow-lg transform transition-all duration-200 ease-out active:scale-95">
+                    Accept Task
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default NewTask;

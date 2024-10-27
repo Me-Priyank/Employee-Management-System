@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  color: #fff;
+/* Global styles */
+* {
+  color: #fff; /* Set text color to white for all elements */
 }
 
-body{
-  background-color: #111;
+body {
+  background-color: #111; /* Set background color for the body */
 }
 
-#tasklist::-webkit-scrollbar{
-  display: none;
-}
-
-#alltask::-webkit-scrollbar{
+/* Hide scrollbar for specific elements */
+#tasklist::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#alltask::-webkit-scrollbar,
+#xx::-webkit-scrollbar {
   display: none;
 }
