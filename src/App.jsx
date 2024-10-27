@@ -6,37 +6,45 @@ import { AuthContext } from "./context/AuthProvider";
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [loggedInUserData, setLoggedInUserData] = useState(null);
   const authData = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   if (authData) {
-  //     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  //     if (loggedInUser) {
-  //       setUser(loggedInUser.role);
-  //     }
-  //   }
-  // }, [authData]);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (storedUser) {
+      console.log('login ho gya hai')
+      setUser(storedUser.role);
+      setLoggedInUserData(storedUser.data);
+    }
+  }, []);
 
   function handleLogin(email, pass) {
     if (email === "admin@gmail.com" && pass === "123") {
-      setUser({role:'admin'});
+      setUser("admin");
       localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
     } else if (authData) {
-      const majdoor = authData.employees?.find((e) => email === e.email && pass === e.password);
-      if(majdoor){
-        setUser({role:employees})
+      const employee = authData.employees?.find((e) => email === e.email && pass === e.password);
+      if (employee) {
+        setUser("employee");
+        setLoggedInUserData(employee);
+        localStorage.setItem("loggedInUser", JSON.stringify({ role: "employee", data: employee }));
       }
-      localStorage.setItem("loggedInUser", JSON.stringify({ role: "employee" }));
     } else {
       alert("Unauthorized Credentials");
     }
   }
 
+  function handleLogout() {
+    localStorage.clear();  // Clear localStorage
+    setUser(null);                            // Reset user state
+    setLoggedInUserData(null);                // Reset user data
+  }
+
   return (
     <>
       {!user && <Login handleLogin={handleLogin} />}
-      {user === "admin" && <AdminDashboard />}
-      {user === "employee" && <EmployeeDashboard />}
+      {user === "admin" && <AdminDashboard data={loggedInUserData} handleLogout={handleLogout} />}
+      {user === "employee" && <EmployeeDashboard data={loggedInUserData} handleLogout={handleLogout} />}
     </>
   );
 }

@@ -42,7 +42,7 @@ function Login({ handleLogin }) {
             required
           />
 
-          <button className="text-white outline-none bg-emerald-600 text-xl py-3 px-5 rounded-full placeholder:text-white mt-3">
+          <button className="text-white outline-none bg-emerald-600 text-xl py-3 px-5 rounded-full placeholder:text-white mt-3" onClick={handleLogin}>
             Submit
           </button>
         </form>
