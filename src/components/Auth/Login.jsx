@@ -12,7 +12,7 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600">
+    <div className=" loginnnn flex h-screen w-screen items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600">
       <div className="flex w-3/4 justify-between items-start space-x-8">
         {/* Left Side: Admin Details */}
         <div className="flex flex-col space-y-4">
