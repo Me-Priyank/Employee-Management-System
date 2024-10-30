@@ -7,6 +7,7 @@ const Header = ({data}) => {
   const logOutUser = () => {
     localStorage.setItem('loggedInUser', '');
     console.log("User logged out, username reset to 'Admin'");
+    window.location.reload();
   };
 
   return (
