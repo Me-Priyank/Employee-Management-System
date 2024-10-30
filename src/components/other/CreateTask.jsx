@@ -10,24 +10,39 @@ const CreateTask = () => {
   const [asignTo, setAsignTo] = useState('');
   const [category, setCategory] = useState('');
 
-  const [newTask, setNewTask] = useState({});
-
   const submitHandler = (e) => {
     e.preventDefault();
 
-    setNewTask({ taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false });
+    const newTask = {
+      taskTitle,
+      taskDescription,
+      taskDate,
+      category,
+      active: false,
+      newTask: true,
+      failed: false,
+      completed: false
+    };
 
-    const data = userData;
-
-    data.forEach(function (elem) {
+    const updatedData = userData.map((elem) => {
       if (asignTo === elem.firstName) {
-        elem.tasks.push(newTask);
-        elem.taskCounts.newTask += 1;
+        return {
+          ...elem,
+          tasks: [...elem.tasks, newTask],
+          taskCounts: {
+            ...elem.taskCounts,
+            newTask: elem.taskCounts.newTask + 1
+          }
+        };
       }
+      return elem;
     });
-    setUserData(data);
-    console.log(data);
 
+    setUserData(updatedData);
+    localStorage.setItem('employees', JSON.stringify(updatedData));
+    console.log(updatedData);
+
+    // Clear form fields
     setTaskTitle('');
     setCategory('');
     setAsignTo('');
@@ -39,6 +54,7 @@ const CreateTask = () => {
     <div className="p-6 bg-gradient-to-r from-gray-800 to-gray-900 mt-5 rounded-lg shadow-lg">
       <form onSubmit={submitHandler} className="flex flex-wrap w-full items-start justify-between gap-6">
         <div className="w-full lg:w-1/2">
+          {/* Task Title Input */}
           <div className="mb-4">
             <h3 className="text-sm text-gray-300 mb-1">Task Title</h3>
             <input
@@ -49,6 +65,7 @@ const CreateTask = () => {
               placeholder="Make a UI design"
             />
           </div>
+          {/* Date Input */}
           <div className="mb-4">
             <h3 className="text-sm text-gray-300 mb-1">Date</h3>
             <input
@@ -58,6 +75,7 @@ const CreateTask = () => {
               type="date"
             />
           </div>
+          {/* Assign to Input */}
           <div className="mb-4">
             <h3 className="text-sm text-gray-300 mb-1">Assign to</h3>
             <input
@@ -68,6 +86,7 @@ const CreateTask = () => {
               placeholder="Employee name"
             />
           </div>
+          {/* Category Input */}
           <div className="mb-4">
             <h3 className="text-sm text-gray-300 mb-1">Category</h3>
             <input
@@ -81,6 +100,7 @@ const CreateTask = () => {
         </div>
 
         <div className="w-full lg:w-2/5 flex flex-col items-start">
+          {/* Description Input */}
           <h3 className="text-sm text-gray-300 mb-1">Description</h3>
           <textarea
             value={taskDescription}
